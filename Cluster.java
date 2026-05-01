@@ -23,51 +23,105 @@ public class Cluster implements ClusterInterface
 {
     protected Node firstPlayer;
 
-/**
- * isEmpty()
- *
- * @return boolean -- whether the cluster is empty
- *
- * Precondition: None
- * Postcondition: True is returned if the Cluster is empty; false is
- *                  returned otherwise.
- * Informally: Check whether the Cluster is empty.
- */
-    public boolean isEmpty()
-{
-    return firstPlayer == null;
-}
 
-/**
-     * isEmpty()
-     *
-     * @return boolean -- whether the cluster is empty
-     *
-     * Precondition: None
-     * Postcondition: True is returned if the Cluster is empty; false is
+	/**
+	 * Constructor
+	 * 
+	 * Precondition: None
+	 * Postcondition: The new instance will have its instance variable(s)
+     *                  initialised.
+	 * Informally: Initialise the cluster of players.
+	 */
+        public Cluster()
+    {
+        firstPlayer = null;
+    }
+
+	/**
+	 * isEmpty()
+	 * 
+	 * @return boolean -- whether the cluster is empty
+	 * 
+	 * Precondition: None
+	 * Postcondition: True is returned if the Cluster is empty; false is
      *                  returned otherwise.
-     * Informally: Check whether the Cluster is empty.
-     */
+	 * Informally: Check whether the Cluster is empty.
+	 */
         public boolean isEmpty()
     {
         return firstPlayer == null;
     }
 
-COMPLETE ME! // to get past the compiler, use: return true;
-    }
-
-    /**
-	 * addPlayerToCluster()
-	 * 
-	 * @param p Player -- the player to add to this cluster
-	 * 
-	 * Precondition: The given Player parameter has been constructed.
-	 * Postcondition: The given Player has been added to the Cluster of
+ /**
+     * addPlayerToCluster()
+     *
+     * @param p Player -- the player to add to this cluster
+     *
+     * Precondition: The given Player parameter has been constructed.
+     * Postcondition: The given Player has been added to the Cluster of
      *                  players preserving the alphabetical order and
      *                  secondarily ordering by games played.
-	 * Informally: Add a player to the Cluster.
-	 */
-    public void addPlayerToCluster(Player p)
+     * Informally: Add a player to the Cluster.
+     */
+        public void addPlayerToCluster(Player p)
+    {
+        Node current;
+        Node previous;
+        Node newNode;
+        Player currentPlayer;
+        int comparison;
+        boolean finished;
+
+
+        current = firstPlayer;
+        previous = null;
+        finished = false;
+
+
+        while ((current != null) && (!finished))
+        {
+            currentPlayer = (Player) current.getData();
+            comparison = p.getName().compareTo(currentPlayer.getName());
+
+
+            if (comparison == 0)
+            {
+                currentPlayer.update(p);
+                finished = true;
+            }
+            else
+            {
+                if (comparison < 0)
+                {
+                    finished = true;
+                }
+                else
+                {
+                    previous = current;
+                    current = current.getNext();
+                }
+            }
+        }
+
+
+        if ((current == null) || (p.getName().compareTo(((Player) current.getData()).getName()) != 0))
+        {
+            newNode = new Node(p);
+
+
+            if (previous == null)
+            {
+                newNode.setNext(firstPlayer);
+                firstPlayer = newNode;
+            }
+            else
+            {
+                newNode.setNext(current);
+                previous.setNext(newNode);
+            }
+        }
+    }
+
     {
 COMPLETE ME!
     }
