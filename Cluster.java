@@ -3,32 +3,41 @@
  * 
  * KIT107 Assignment 2 -- Cluster Implementation
  * 
- * @author <<your name and student ID number>>
- * @version	<<date of completion>>
+ * @author <<Mehedi Hasan Bhuya, ID number 773058>>
+ * @version	<<1/05/2026>>
+ */
+/*
+ * Answers to design questions (a) and (b):
+ * Design decision for Cluster:
+ * The cluster of players within one football team is modelled as a list because
+ * players must be stored in alphabetical order, searched, traversed, counted,
+ * and updated when another game record for the same player is found.
+ *
+ * A linked list is used as the underlying data structure because the number of
+ * players is not known in advance and ordered insertion can be done by changing
+ * node links without shifting array elements.
  */
 
 
 public class Cluster implements ClusterInterface
 {
-    // final instance variables
-COMPLETE ME!
+    protected Node firstPlayer;
 
-    
-    // instance variables
-COMPLETE ME!
-
-
-	/**
-	 * Constructor
-	 * 
-	 * Precondition: None
-	 * Postcondition: The new instance will have its instance variable(s)
-     *                  initialised.
-	 * Informally: Initialise the cluster of players.
-	 */
+ /**
+ * Constructor
+ *
+ * Precondition: None
+ * Postcondition: The new instance will have its instance variable(s)
+ *                  initialised.
+ * Informally: Initialise the cluster of players.
+ */
     public Cluster()
+ {
+   firstPlayer = null;
+ }
+ 
     {
-COMPLETE ME!
+COMPLETE ME 
     }
 
 	/**
