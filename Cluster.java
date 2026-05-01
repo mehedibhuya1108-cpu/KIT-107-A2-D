@@ -23,35 +23,36 @@ public class Cluster implements ClusterInterface
 {
     protected Node firstPlayer;
 
- /**
- * Constructor
+/**
+ * isEmpty()
+ *
+ * @return boolean -- whether the cluster is empty
  *
  * Precondition: None
- * Postcondition: The new instance will have its instance variable(s)
- *                  initialised.
- * Informally: Initialise the cluster of players.
+ * Postcondition: True is returned if the Cluster is empty; false is
+ *                  returned otherwise.
+ * Informally: Check whether the Cluster is empty.
  */
-    public Cluster()
- {
-   firstPlayer = null;
- }
- 
+    public boolean isEmpty()
+{
+    return firstPlayer == null;
+}
+
+/**
+     * isEmpty()
+     *
+     * @return boolean -- whether the cluster is empty
+     *
+     * Precondition: None
+     * Postcondition: True is returned if the Cluster is empty; false is
+     *                  returned otherwise.
+     * Informally: Check whether the Cluster is empty.
+     */
+        public boolean isEmpty()
     {
-COMPLETE ME 
+        return firstPlayer == null;
     }
 
-	/**
-	 * isEmpty()
-	 * 
-	 * @return boolean -- whether the cluster is empty
-	 * 
-	 * Precondition: None
-	 * Postcondition: True is returned if the Cluster is empty; false is
-     *                  returned otherwise.
-	 * Informally: Check whether the Cluster is empty.
-	 */
-    public boolean isEmpty()
-    {
 COMPLETE ME! // to get past the compiler, use: return true;
     }
 
