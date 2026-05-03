@@ -32,26 +32,27 @@ public class Collection implements CollectionInterface
      *                  initialised.
      * Informally: Initialise the Collection of player clusters ('teams').
      */
-        public Collection()
+        public Collection() // constructor
     {
-        firstTeam = null;
+        firstTeam = null; // the collection starts empty
     }
 
+    /**
+     * isEmpty() // to check if the collection is empty
+     *
+     * @return boolean -- whether the collection is empty // has no teams
+     *
+     * Precondition: None // the method can be called on any Collection instance
+     * Postcondition: True is returned if the Collection is empty; false is
+     *                  returned otherwise. // that is, if there are no teams in the Collection
+     * Informally: Check whether the Collection is empty. // that is, whether there are any teams in the Collection
+     */
+        public boolean isEmpty() // to check if the collection is empty
     {
-COMPLETE ME!
+        return firstTeam == null; // the collection is empty if there are no teams (i.e., firstTeam is null)
     }
 
-	/**
-	 * isEmpty()
-	 * 
-	 * @return boolean -- whether the collection is empty
-	 * 
-	 * Precondition: None
-	 * Postcondition: True is returned if the Collection is empty; false is
-     *                  returned otherwise.
-	 * Informally: Check whether the Collection is empty.
-	 */
-    public boolean isEmpty()
+
     {
 COMPLETE ME! // to get past the compiler, use: return true;
     }
