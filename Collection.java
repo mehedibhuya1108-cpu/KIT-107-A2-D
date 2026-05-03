@@ -1,32 +1,42 @@
 /**
  * Collection.java
- * 
+ *
  * KIT107 Assignment 2 -- Collection Implementation
- * 
- * @author <<your name and student ID number>>
- * @version	<<date of completion>>
+ *
+ *  * @author Mehedi Hasan Bhuya, 773058
+ * @version 03/05/2026
+ */
+/*
+ * Design decision for Collection:
+ * The collection of football teams is modelled as a list because teams must be
+ * stored alphabetically, searched by team name, traversed for reports, and added
+ * as new teams are encountered in the data file.
+ *
+ * A linked list is used as the underlying data structure because the number of
+ * teams is treated as unknown from the design information and ordered insertion
+ * can be performed without shifting array elements.
  */
 
 
 public class Collection implements CollectionInterface
 {
-    // final instance variables
-COMPLETE ME!
+    protected Node firstTeam;
 
-    
-    // instance variables
-COMPLETE ME!
 
-    
-	/**
-	 * Constructor
-	 * 
-	 * Precondition: None
-	 * Postcondition: The new instance will have its instance variable(s)
+   
+    /**
+     * Constructor
+     *
+     * Precondition: None
+     * Postcondition: The new instance will have its instance variable(s)
      *                  initialised.
-	 * Informally: Initialise the Collection of player clusters ('teams').
-	 */
-    public Collection()
+     * Informally: Initialise the Collection of player clusters ('teams').
+     */
+        public Collection()
+    {
+        firstTeam = null;
+    }
+
     {
 COMPLETE ME!
     }
