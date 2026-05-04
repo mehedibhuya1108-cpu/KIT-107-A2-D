@@ -53,23 +53,97 @@ public class Collection implements CollectionInterface
     }
 
 
-    {
-COMPLETE ME! // to get past the compiler, use: return true;
-    }
-
     /**
-	 * addPlayerToCollection()
-	 * 
-	 * @param p Player -- the player to add to this collection
-	 * 
-	 * Precondition: The given Player parameter has been constructed
-	 * Postcondition: The given Player has been added to the Collection and,
+     * addPlayerToCollection()
+     *
+     * @param p Player -- the player to add to this collection
+     *
+     * Precondition: The given Player parameter has been constructed
+     * Postcondition: The given Player has been added to the Collection and,
      *                  in particular to the appropriate cluster of players
      *                  based on the team name.
-	 * Informally: Add a player to the appropriate 'team' in the
+     * Informally: Add a player to the appropriate 'team' in the
      *                  Collection.
-	 */
-    public void addPlayerToCollection(Player p)
+     */
+        public void addPlayerToCollection(Player p)
+    {
+        Node current;
+        Node previous;
+        Node newNode;
+        Cluster currentCluster;
+        Cluster newCluster;
+        String currentTeam;
+        int comparison;
+        boolean added;
+
+
+        current = firstTeam;
+        previous = null;
+        added = false;
+
+
+        while ((current != null) && (!added))
+        {
+            currentCluster = (Cluster) current.getData();
+            currentTeam = currentCluster.getFirstPlayer().getTeam();
+            comparison = p.getTeam().compareTo(currentTeam);
+
+
+            if (comparison == 0)
+            {
+                currentCluster.addPlayerToCluster(p);
+                added = true;
+            }
+            else
+            {
+                if (comparison < 0)
+                {
+                    newCluster = new Cluster();
+                    newCluster.addPlayerToCluster(p);
+                    newNode = new Node(newCluster);
+
+
+                    if (previous == null)
+                    {
+                        newNode.setNext(firstTeam);
+                        firstTeam = newNode;
+                    }
+                    else
+                    {
+                        newNode.setNext(current);
+                        previous.setNext(newNode);
+                    }
+
+
+                    added = true;
+                }
+                else
+                {
+                    previous = current;
+                    current = current.getNext();
+                }
+            }
+        }
+
+
+        if (!added)
+        {
+            newCluster = new Cluster();
+            newCluster.addPlayerToCluster(p);
+            newNode = new Node(newCluster);
+
+
+            if (previous == null)
+            {
+                firstTeam = newNode;
+            }
+            else
+            {
+                previous.setNext(newNode);
+            }
+        }
+    }
+
     {
 COMPLETE ME!
     }
