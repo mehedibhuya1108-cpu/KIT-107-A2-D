@@ -144,23 +144,55 @@ public class Collection implements CollectionInterface
         }
     }
 
+
+
+     */
+        public void showPlayerHistogram()
     {
-COMPLETE ME!
+        Node current;
+        Cluster currentCluster;
+        Player firstPlayer;
+        String teamName;
+        String stars;
+        int count;
+        int i;
+
+
+        System.out.println("Count of players per team:");
+
+
+        if (isEmpty())
+        {
+            System.out.println("No data!");
+        }
+        else
+        {
+            current = firstTeam;
+
+
+            while (current != null)
+            {
+                currentCluster = (Cluster) current.getData();
+                firstPlayer = currentCluster.getFirstPlayer();
+                teamName = firstPlayer.getTeam();
+                count = currentCluster.countPlayers();
+                stars = "";
+
+
+                for (i = 0; i < count; i++)
+                {
+                    stars = stars + "*";
+                }
+
+
+                System.out.println(String.format("%22s | %s %d", teamName, stars, count));
+
+
+                current = current.getNext();
+            }
+        }
     }
 
-    /**
-	 * showPlayerHistogram()
-	 * 
-	 * Precondition: None
-	 * Postcondition: The Collection is traversed cluster by cluster.  A
-     *                  row comprising cluster name, a star for each
-     *                  player in the cluster, and the total number of
-     *                  players in the cluster is printed.  The message
-     *                  "No data!" should be printed if the Collection is 
-     *                  empty.
-	 * Informally: Print the horizontal histogram of players per team
-	 */
-    public void showPlayerHistogram()
     {
 COMPLETE ME!
     }
