@@ -337,24 +337,35 @@ public class Collection implements CollectionInterface
         }
     }
 
-    {
-COMPLETE ME! 
-    }
-
-	/**
-	 * toString()
-	 * 
-	 * @return String -- printable form of the Collection of players
-	 * 
-	 * Precondition: None
-	 * Postcondition: A printable (String) form of the Collections's 
+    /**
+     * toString()
+     *
+     * @return String -- printable form of the Collection of players
+     *
+     * Precondition: None
+     * Postcondition: A printable (String) form of the Collections's
      *                  players data is returned, one player per line.  If
      *                  there are no players then "" is returned.
-	 * Informally: Convert the Collection of players data to a multi-line
+     * Informally: Convert the Collection of players data to a multi-line
      *                  String.
-	 */
-    public String toString()
+     */
+        public String toString()
     {
-COMPLETE ME! // to get past the compiler, use: return "";
+        Node current;
+        String result;
+
+
+        current = firstTeam;
+        result = "";
+
+
+        while (current != null)
+        {
+            result = result + ((Cluster) current.getData()).toString();
+            current = current.getNext();
+        }
+
+
+        return result;
     }
 }
