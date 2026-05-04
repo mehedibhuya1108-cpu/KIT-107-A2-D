@@ -278,27 +278,65 @@ public class Collection implements CollectionInterface
         return result;
     }
 
-    {
-COMPLETE ME! // to get past the compiler, use: return "";
-    }
-
     /**
-	 * summarise()
-	 * 
+     * summarise()
+     *
      * @param t String -- the name of the desired team
-     * 
-	 * Precondition: None
-	 * Postcondition: The Collection is traversed cluster by cluster.  The
+     *
+     * Precondition: None
+     * Postcondition: The Collection is traversed cluster by cluster.  The
      *                  aggregated statistics of all players for the chosen
-     *                  team is calculated and printed.  The message "No data!" 
+     *                  team is calculated and printed.  The message "No data!"
      *                  should be printed if the Collection is empty; the
      *                  message "Team (t) not found!" should be printed if the
      *                  Collection is not empty but there is no team with the
      *                  given team name present.
-	 * Informally: Process the entire Collection displaying the combined
+     * Informally: Process the entire Collection displaying the combined
      *                  statistics for the given team.
-	 */
-    public void summarise(String t)
+     */
+        public void summarise(String t)
+    {
+        Node current;
+        Cluster currentCluster;
+        Player firstPlayer;
+        boolean found;
+
+
+        current = firstTeam;
+        found = false;
+
+
+        if (isEmpty())
+        {
+            System.out.println("No data!");
+        }
+        else
+        {
+            while ((current != null) && (!found))
+            {
+                currentCluster = (Cluster) current.getData();
+                firstPlayer = currentCluster.getFirstPlayer();
+
+
+                if (firstPlayer.getTeam().equalsIgnoreCase(t))
+                {
+                    System.out.println(currentCluster.summary());
+                    found = true;
+                }
+                else
+                {
+                    current = current.getNext();
+                }
+            }
+
+
+            if (!found)
+            {
+                System.out.println("Team (" + t + ") not found!");
+            }
+        }
+    }
+
     {
 COMPLETE ME! 
     }
