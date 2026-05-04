@@ -144,9 +144,7 @@ public class Collection implements CollectionInterface
         }
     }
 
-
-
-     */
+     // showing PlayerHistogram()
         public void showPlayerHistogram()
     {
         Node current;
@@ -193,28 +191,93 @@ public class Collection implements CollectionInterface
         }
     }
 
-    {
-COMPLETE ME!
-    }
-
     /**
-	 * most()
-	 * 
-	 * @param x char -- the category to search: frees-(a)gainst, (c)langers, 
+     * most()
+     *
+     * @param x char -- the category to search: frees-(a)gainst, (c)langers,
      *                      (d)isposals, (g)oals, or ga(m)es
      *
      * @return String -- the printable form of the identified output
      *  
      * Precondition: None.
-	 * Postcondition: All players in all teams in the Collection are searched to
-     *                  find the player with the largest value in the given 
-     *                  category (x).  The message "No data!" is returned if the 
+     * Postcondition: All players in all teams in the Collection are searched to
+     *                  find the player with the largest value in the given
+     *                  category (x).  The message "No data!" is returned if the
      *                  Collection is empty.  In the case of a tie, the player
      *                  found last is the one whose data is returned.
-	 * Informally: Search every player in the cluster for a value in the given
+     * Informally: Search every player in the cluster for a value in the given
      *                  category and print the name and URL for all that match.
      */
-    public String most(char x)
+        public String most(char x)
+    {
+        Node current;
+        Cluster currentCluster;
+        Player currentPlayer;
+        Player resultPlayer;
+        String result;
+        int currentValue;
+        int maximumValue;
+
+
+        current = firstTeam;
+        resultPlayer = null;
+        result = "";
+        maximumValue = 0;
+
+
+        if (isEmpty())
+        {
+            result = "No data!";
+        }
+        else
+        {
+            while (current != null)
+            {
+                currentCluster = (Cluster) current.getData();
+                currentPlayer = currentCluster.most(x);
+                currentValue = 0;
+
+
+                if (x == 'a')
+                {
+                    currentValue = currentPlayer.getFreesAgainst();
+                }
+                else if (x == 'c')
+                {
+                    currentValue = currentPlayer.getClangers();
+                }
+                else if (x == 'd')
+                {
+                    currentValue = currentPlayer.getDisposals();
+                }
+                else if (x == 'g')
+                {
+                    currentValue = currentPlayer.getGoals();
+                }
+                else if (x == 'm')
+                {
+                    currentValue = currentPlayer.getGames();
+                }
+
+
+                if ((resultPlayer == null) || (currentValue >= maximumValue))
+                {
+                    resultPlayer = currentPlayer;
+                    maximumValue = currentValue;
+                }
+
+
+                current = current.getNext();
+            }
+
+
+            result = resultPlayer.toString();
+        }
+
+
+        return result;
+    }
+
     {
 COMPLETE ME! // to get past the compiler, use: return "";
     }
