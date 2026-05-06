@@ -63,7 +63,7 @@ public class AssigTwo126
 		myFile = new FileHandler(FILENAME);
 		myFile.readFile(collection, year);
 
-		//System.out.println(collection.toString());  // show contents of collection
+	    System.out.println(collection.toString());  // show contents of collection
 
 		// produce histogram of frequencies of players per team
 		collection.showPlayerHistogram();
