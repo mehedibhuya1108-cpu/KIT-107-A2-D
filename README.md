@@ -9,7 +9,7 @@ Student ID: 773058
 
 ## Description
 
-This program reads AFL player statistics from a CSV file and analyses the data for a selected year. It stores the data using linked lists and produces outputs such as player statistics, histograms, and team summaries.
+This program reads in AFL player statistics from a CSV file and analyses the data for a given year. The data are stored using linked lists. The outputs can be player statistics, histograms, team summaries, etc.
 
 ## How to Compile
 
