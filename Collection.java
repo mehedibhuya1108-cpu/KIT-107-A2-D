@@ -7,14 +7,11 @@
  * @version 30/04/2026
  */
 /*
+ * (c) ADT for Collection:
  * Design decision for Collection:
  * The collection of football teams is modelled as a list because teams must be
  * stored alphabetically, searched by team name, traversed for reports, and added
  * as new teams are encountered in the data file.
- *
- * A linked list is used as the underlying data structure because the number of
- * teams is treated as unknown from the design information and ordered insertion
- * can be performed without shifting array elements.
  */
 
 
