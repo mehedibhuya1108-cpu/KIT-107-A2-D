@@ -3,7 +3,7 @@
  *
  * KIT107 Assignment 2 -- Cluster Implementation
  *
- * @author Mehedi Hasan Bhuya, 773058
+ *  * @author Mehedi Hasan Bhuya, 773058
  * @version 30/04/2026
  */
 /*
@@ -18,198 +18,320 @@
  */
 
 
-public class Cluster implements ClusterInterface // class implementing the interface
+public class Cluster implements ClusterInterface
 {
-    protected Node firstPlayer; // reference to the first node (head of linked list)
+    protected Node firstPlayer;
 
-    public Cluster() // constructor
+
+
+
+    /**
+     * Constructor
+     *
+     * Precondition: None
+     * Postcondition: The new instance will have its instance variable(s)
+     *                  initialised.
+     * Informally: Initialise the cluster of players.
+     */
+        public Cluster()
     {
-        firstPlayer = null; // initially the list is empty
+        firstPlayer = null;
     }
 
-    public boolean isEmpty() // check if list is empty
+
+    /**
+     * isEmpty()
+     *
+     * @return boolean -- whether the cluster is empty
+     *
+     * Precondition: None
+     * Postcondition: True is returned if the Cluster is empty; false is
+     *                  returned otherwise.
+     * Informally: Check whether the Cluster is empty.
+     */
+        public boolean isEmpty()
     {
-        return firstPlayer == null; // return true if no first node
+        return firstPlayer == null;
     }
 
-    public void addPlayerToCluster(Player p) // add player into linked list
+
+    /**
+     * addPlayerToCluster()
+     *
+     * @param p Player -- the player to add to this cluster
+     *
+     * Precondition: The given Player parameter has been constructed.
+     * Postcondition: The given Player has been added to the Cluster of
+     *                  players preserving the alphabetical order and
+     *                  secondarily ordering by games played.
+     * Informally: Add a player to the Cluster.
+     */
+        public void addPlayerToCluster(Player p)
     {
-        Node current; // pointer to current node during traversal
-        Node previous; // pointer to previous node
-        Node newNode; // new node to insert
-        Player currentPlayer; // current player object from node
-        int comparison; // result of comparing names
-        boolean finished; // flag to stop loop
+        Node current;
+        Node previous;
+        Node newNode;
+        Player currentPlayer;
+        int comparison;
+        boolean finished;
 
-        current = firstPlayer; // start from first node
-        previous = null; // no previous at beginning
-        finished = false; // loop not finished yet
 
-        while ((current != null) && (!finished)) // traverse list
+        current = firstPlayer;
+        previous = null;
+        finished = false;
+
+
+        while ((current != null) && (!finished))
         {
-            currentPlayer = (Player) current.getData(); // get player from node
-            comparison = p.getName().compareTo(currentPlayer.getName()); // compare names
+            currentPlayer = (Player) current.getData();
+            comparison = p.getName().compareTo(currentPlayer.getName());
 
-            if (comparison == 0) // same player found
+
+            if (comparison == 0)
             {
-                currentPlayer.update(p); // update stats instead of adding new node
-                finished = true; // stop loop
+                currentPlayer.update(p);
+                finished = true;
             }
             else
             {
-                if (comparison < 0) // correct position found (alphabetically)
+                if (comparison < 0)
                 {
-                    finished = true; // stop loop
+                    finished = true;
                 }
                 else
                 {
-                    previous = current; // move previous forward
-                    current = current.getNext(); // move current forward
+                    previous = current;
+                    current = current.getNext();
                 }
             }
         }
 
-        // if player not already updated → insert new node
+
         if ((current == null) || (p.getName().compareTo(((Player) current.getData()).getName()) != 0))
         {
-            newNode = new Node(p); // create new node
+            newNode = new Node(p);
 
-            if (previous == null) // insert at beginning
+
+            if (previous == null)
             {
-                newNode.setNext(firstPlayer); // link new node to old first
-                firstPlayer = newNode; // update head
+                newNode.setNext(firstPlayer);
+                firstPlayer = newNode;
             }
-            else // insert in middle or end
+            else
             {
-                newNode.setNext(current); // link new node to current
-                previous.setNext(newNode); // link previous to new node
+                newNode.setNext(current);
+                previous.setNext(newNode);
             }
         }
     }
 
-    public Player getFirstPlayer() // return first player
+
+    /**
+     * getFirstPlayer()
+     *
+     * @return Player -- the first player in the cluster
+     *
+     * Precondition: None
+     * Postcondition: the first player in the cluster is returned if the
+     *                  cluster is non-empty; null is returned otherwise.
+     * Informally: Get the first player in thge cluster.
+     */
+        public Player getFirstPlayer()
     {
         Player result;
 
-        if (isEmpty()) // if list empty
+
+        if (isEmpty())
         {
-            result = null; // return null
+            result = null;
         }
         else
         {
-            result = (Player) firstPlayer.getData(); // get first player
+            result = (Player) firstPlayer.getData();
         }
 
-        return result; // return result
+
+        return result;
     }
 
-    public int countPlayers() // count number of players
+
+   /**
+     * countPlayers()
+     *
+     * @return int -- the number of players in the cluster
+     *
+     * Precondition: None
+     * Postcondition: The number of players in the Cluster has been counted and
+     *                  returned.
+     * Informally: Produce a count of players within the current Cluster.
+     */
+        public int countPlayers()
     {
-        Node current; // traversal pointer
-        int count; // counter
+        Node current;
+        int count;
 
-        current = firstPlayer; // start at head
-        count = 0; // initialise counter
 
-        while (current != null) // traverse list
+        current = firstPlayer;
+        count = 0;
+
+
+        while (current != null)
         {
-            count = count + 1; // increment count
-            current = current.getNext(); // move to next node
+            count = count + 1;
+            current = current.getNext();
         }
 
-        return count; // return total count
+
+        return count;
     }
 
-    public Player most(char x) // find player with max value
+
+    /**
+     * most()
+     *
+     * @param x char -- the category to search ('g'oals, 'd'isposals, 'c'langers,
+     *                      frees 'a'gainst, or ga'm'es)
+     * @return Player -- the player with the highest value in the specified
+     *                      category
+     *
+     * Precondition: None.
+     * Postcondition: All players in the Cluster are searched for the given maximum
+     *                  in the category indicated (x) and the player with the
+     *                  highest is returned.  If there are multiple players then the
+     *                  last found is returned; if there are no data then null is
+     *                  returned.
+     * Informally: Find the player in the Cluster with the maximum value in the
+     *                  given category.
+     */
+        public Player most(char x)
     {
-        Node current; // traversal pointer
-        Player currentPlayer; // current player
-        Player result; // best player found
-        int currentValue; // current stat value
-        int maximumValue; // max stat value
+        Node current;
+        Player currentPlayer;
+        Player result;
+        int currentValue;
+        int maximumValue;
 
-        current = firstPlayer; // start from first
-        result = null; // no result yet
-        maximumValue = 0; // initialise max
 
-        while (current != null) // traverse all players
+        current = firstPlayer;
+        result = null;
+        maximumValue = 0;
+
+
+        while (current != null)
         {
-            currentPlayer = (Player) current.getData(); // get player
-            currentValue = 0; // reset value
+            currentPlayer = (Player) current.getData();
+            currentValue = 0;
 
-            // select stat based on input
+
             if (x == 'a')
-                currentValue = currentPlayer.getFreesAgainst();
-            else if (x == 'c')
-                currentValue = currentPlayer.getClangers();
-            else if (x == 'd')
-                currentValue = currentPlayer.getDisposals();
-            else if (x == 'g')
-                currentValue = currentPlayer.getGoals();
-            else if (x == 'm')
-                currentValue = currentPlayer.getGames();
-
-            // check if this player has higher value
-            if ((result == null) || (currentValue >= maximumValue))
             {
-                result = currentPlayer; // update result
-                maximumValue = currentValue; // update max value
+                currentValue = currentPlayer.getFreesAgainst();
+            }
+            else if (x == 'c')
+            {
+                currentValue = currentPlayer.getClangers();
+            }
+            else if (x == 'd')
+            {
+                currentValue = currentPlayer.getDisposals();
+            }
+            else if (x == 'g')
+            {
+                currentValue = currentPlayer.getGoals();
+            }
+            else if (x == 'm')
+            {
+                currentValue = currentPlayer.getGames();
             }
 
-            current = current.getNext(); // move to next node
+
+            if ((result == null) || (currentValue >= maximumValue))
+            {
+                result = currentPlayer;
+                maximumValue = currentValue;
+            }
+
+
+            current = current.getNext();
         }
 
-        return result; // return best player
+
+        return result;
     }
 
-    public String summary() // calculate team summary
+
+    /**
+     * summary()
+     *
+     * @return String -- the summary of statistics for the current Cluster (i.e. team)
+     *
+     * Precondition: None
+     * Postcondition: A String has been returned which is the summary of the current
+     *                  team's statistics, or "" if the cluster is empty.
+     * Informally: Produce a summary of the current Cluster.
+     */
+        public String summary()
     {
-        Node current; // traversal pointer
-        Player currentPlayer; // current player
-        String result; // result string
+        Node current;
+        Player currentPlayer;
+        String result;
+        int disposals;
+        int marks;
+        int kicks;
+        int handballs;
+        int hitouts;
+        int tackles;
+        int clangers;
+        int freesFor;
+        int freesAgainst;
+        int goals;
+        int behinds;
+        int points;
 
-        // variables to accumulate stats
-        int disposals = 0;
-        int marks = 0;
-        int kicks = 0;
-        int handballs = 0;
-        int hitouts = 0;
-        int tackles = 0;
-        int clangers = 0;
-        int freesFor = 0;
-        int freesAgainst = 0;
-        int goals = 0;
-        int behinds = 0;
-        int points = 0;
 
-        current = firstPlayer; // start traversal
-        result = ""; // initialise result
+        current = firstPlayer;
+        result = "";
+        disposals = 0;
+        marks = 0;
+        kicks = 0;
+        handballs = 0;
+        hitouts = 0;
+        tackles = 0;
+        clangers = 0;
+        freesFor = 0;
+        freesAgainst = 0;
+        goals = 0;
+        behinds = 0;
+        points = 0;
 
-        while (current != null) // loop through players
+
+        while (current != null)
         {
-            currentPlayer = (Player) current.getData(); // get player
+            currentPlayer = (Player) current.getData();
 
-            // accumulate all stats
-            disposals += currentPlayer.getDisposals();
-            marks += currentPlayer.getMarks();
-            kicks += currentPlayer.getKicks();
-            handballs += currentPlayer.getHandballs();
-            hitouts += currentPlayer.getHitouts();
-            tackles += currentPlayer.getTackles();
-            clangers += currentPlayer.getClangers();
-            freesFor += currentPlayer.getFreesFor();
-            freesAgainst += currentPlayer.getFreesAgainst();
-            goals += currentPlayer.getGoals();
-            behinds += currentPlayer.getBehinds();
 
-            current = current.getNext(); // move to next
+            disposals = disposals + currentPlayer.getDisposals();
+            marks = marks + currentPlayer.getMarks();
+            kicks = kicks + currentPlayer.getKicks();
+            handballs = handballs + currentPlayer.getHandballs();
+            hitouts = hitouts + currentPlayer.getHitouts();
+            tackles = tackles + currentPlayer.getTackles();
+            clangers = clangers + currentPlayer.getClangers();
+            freesFor = freesFor + currentPlayer.getFreesFor();
+            freesAgainst = freesAgainst + currentPlayer.getFreesAgainst();
+            goals = goals + currentPlayer.getGoals();
+            behinds = behinds + currentPlayer.getBehinds();
+
+
+            current = current.getNext();
         }
 
-        if (!isEmpty()) // if data exists
-        {
-            points = goals * 6 + behinds; // calculate total score
 
-            // build result string
+        if (!isEmpty())
+        {
+            points = goals * 6 + behinds;
+
+
             result = "\tThere were: " + disposals + " disposals (Marks: " + marks
                     + "; kicks: " + kicks + "; handballs: " + handballs
                     + "; hitouts: " + hitouts + ")\n"
@@ -219,23 +341,40 @@ public class Cluster implements ClusterInterface // class implementing the inter
                     + points + " points.";
         }
 
-        return result; // return summary
+
+        return result;
     }
 
-    public String toString() // convert cluster to string
+
+    /**
+     * toString()
+     *
+     * @return String -- printable form of the Cluster of players
+     *
+     * Precondition: None
+     * Postcondition: A printable (String) form of the players data is
+     *                  returned, one player per line.  If there are no
+     *                  players then "" is returned.
+     * Informally: Convert the Cluster of players data to a multi-line
+     *                  String.
+     */
+        public String toString()
     {
-        Node current; // traversal pointer
-        String result; // result string
+        Node current;
+        String result;
 
-        current = firstPlayer; // start from head
-        result = ""; // initialise string
 
-        while (current != null) // loop through list
+        current = firstPlayer;
+        result = "";
+
+
+        while (current != null) // loop through the linked list of players
         {
-            result = result + ((Player) current.getData()).toString(); // append player string
-            current = current.getNext(); // move to next node
+            result = result + ((Player) current.getData()).toString(); //
+            current = current.getNext();
         }
 
-        return result; // return full string
+
+        return result;
     }
 }
