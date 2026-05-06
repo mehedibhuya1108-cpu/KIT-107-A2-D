@@ -44,6 +44,6 @@ Linked lists are used because the number of teams and players is not fixed. The 
 
 ## Notes
 
-* The program ignores data outside the selected year.
-* Case-insensitive search is used for team names.
+The program only processes data for the selected year and ignores all other years. It also uses a case-insensitive search so team names can be entered in any format.
+
 */
