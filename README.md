@@ -34,9 +34,7 @@ java AssigTwo126
 
 ## Design Decisions
 
-* Linked lists are used because the number of teams and players is unknown.
-* Data is stored in alphabetical order for easy searching.
-* Clusters represent teams, and each cluster contains players.
+Linked lists are used because the number of teams and players is not fixed. The data is kept in alphabetical order to make searching easier. Teams are stored as clusters, and each cluster contains its players.
 
 ## Assumptions
 
