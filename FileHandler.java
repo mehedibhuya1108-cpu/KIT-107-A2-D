@@ -144,7 +144,7 @@ public class FileHandler implements FileHandlerInterface
 	 */
     public void readFile(Collection collection, int year)
     {
-        final int LIMIT =80;    // number of players to process; reduce to, e.g., 10 then 80 then 1200 when debugging
+        final int LIMIT =1200;    // number of players to process; reduce to, e.g., 10 then 80 then 1200 when debugging
 		final String DELIMITER = ",";			// comma separated data
 		final int NUM_FIELDS = 31;				// number of fields in each row of data
         
