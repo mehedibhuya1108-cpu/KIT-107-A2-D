@@ -7,14 +7,12 @@
  * @version 30/04/2026
  */
 /*
+/*
+ * (a) ADT for Cluster:
  * Design decision for Cluster:
  * The cluster of players within one football team is modelled as a list because
  * players must be stored in alphabetical order, searched, traversed, counted,
  * and updated when another game record for the same player is found.
- *
- * A linked list is used as the underlying data structure because the number of
- * players is not known in advance and ordered insertion can be done by changing
- * node links without shifting array elements.
  */
 
 
