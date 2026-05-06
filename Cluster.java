@@ -372,7 +372,7 @@ public class Cluster implements ClusterInterface
 
         while (current != null) // loop through the linked list of players
         {
-            result = result + ((Player) current.getData()).toString(); //
+            result = result + ((Player) current.getData()).toString() + "\n"; // add the current player's data to the result String
             current = current.getNext();
         }
 
