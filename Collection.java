@@ -3,8 +3,8 @@
  *
  * KIT107 Assignment 2 -- Collection Implementation
  *
- * @author Mehedi Hasan Bhuya, 773058
- * @version 04/05/2026
+ *  * @author Mehedi Hasan Bhuya, 773058
+ * @version 30/04/2026
  */
 /*
  * Design decision for Collection:
@@ -18,242 +18,373 @@
  */
 
 
-public class Collection implements CollectionInterface // this class stores all teams (each team is a cluster)
+public class Collection implements CollectionInterface
 {
-    protected Node firstTeam; // this is the first node of the linked list (start of teams list)
+    protected Node firstTeam;
 
 
    
-    public Collection() // constructor
+    /**
+     * Constructor
+     *
+     * Precondition: None
+     * Postcondition: The new instance will have its instance variable(s)
+     *                  initialised.
+     * Informally: Initialise the Collection of player clusters ('teams').
+     */
+        public Collection()
     {
-        firstTeam = null; // at the beginning there are no teams
+        firstTeam = null;
     }
 
-    public boolean isEmpty() // checks if the collection is empty
+
+    /**
+     * isEmpty()
+     *
+     * @return boolean -- whether the collection is empty
+     *
+     * Precondition: None
+     * Postcondition: True is returned if the Collection is empty; false is
+     *                  returned otherwise.
+     * Informally: Check whether the Collection is empty.
+     */
+        public boolean isEmpty()
     {
-        return firstTeam == null; // if firstTeam is null, no teams exist
+        return firstTeam == null;
     }
 
-    public void addPlayerToCollection(Player p) // adds a player into the correct team
+
+    /**
+     * addPlayerToCollection()
+     *
+     * @param p Player -- the player to add to this collection
+     *
+     * Precondition: The given Player parameter has been constructed
+     * Postcondition: The given Player has been added to the Collection and,
+     *                  in particular to the appropriate cluster of players
+     *                  based on the team name.
+     * Informally: Add a player to the appropriate 'team' in the
+     *                  Collection.
+     */
+        public void addPlayerToCollection(Player p)
     {
-        Node current; // used to move through the team list
-        Node previous; // keeps track of previous node
-        Node newNode; // new node to insert
-        Cluster currentCluster; // current team cluster
-        Cluster newCluster; // new team cluster if needed
-        String currentTeam; // name of current team
-        int comparison; // result of comparing team names
-        boolean added; // flag to check if player is added
+        Node current;
+        Node previous;
+        Node newNode;
+        Cluster currentCluster;
+        Cluster newCluster;
+        String currentTeam;
+        int comparison;
+        boolean added;
 
-        current = firstTeam; // start from first team
-        previous = null; // no previous at start
-        added = false; // player not added yet
 
-        while ((current != null) && (!added)) // loop through teams
+        current = firstTeam;
+        previous = null;
+        added = false;
+
+
+        while ((current != null) && (!added))
         {
-            currentCluster = (Cluster) current.getData(); // get current cluster
-            currentTeam = currentCluster.getFirstPlayer().getTeam(); // get team name
-            comparison = p.getTeam().compareTo(currentTeam); // compare team names
+            currentCluster = (Cluster) current.getData();
+            currentTeam = currentCluster.getFirstPlayer().getTeam();
+            comparison = p.getTeam().compareTo(currentTeam);
 
-            if (comparison == 0) // if team already exists
+
+            if (comparison == 0)
             {
-                currentCluster.addPlayerToCluster(p); // add player to that team
-                added = true; // mark as added
+                currentCluster.addPlayerToCluster(p);
+                added = true;
             }
             else
             {
-                if (comparison < 0) // correct position found (alphabetical order)
+                if (comparison < 0)
                 {
-                    newCluster = new Cluster(); // create new team
-                    newCluster.addPlayerToCluster(p); // add player to new team
-                    newNode = new Node(newCluster); // create node for new team
+                    newCluster = new Cluster();
+                    newCluster.addPlayerToCluster(p);
+                    newNode = new Node(newCluster);
 
-                    if (previous == null) // insert at beginning
+
+                    if (previous == null)
                     {
-                        newNode.setNext(firstTeam); // link to old first
-                        firstTeam = newNode; // update first team
+                        newNode.setNext(firstTeam);
+                        firstTeam = newNode;
                     }
-                    else // insert in middle
+                    else
                     {
-                        newNode.setNext(current); // link to current
-                        previous.setNext(newNode); // link previous to new node
+                        newNode.setNext(current);
+                        previous.setNext(newNode);
                     }
 
-                    added = true; // mark as added
+
+                    added = true;
                 }
                 else
                 {
-                    previous = current; // move previous forward
-                    current = current.getNext(); // move current forward
+                    previous = current;
+                    current = current.getNext();
                 }
             }
         }
 
-        if (!added) // if team not found, add at end
-        {
-            newCluster = new Cluster(); // create new cluster
-            newCluster.addPlayerToCluster(p); // add player
-            newNode = new Node(newCluster); // create node
 
-            if (previous == null) // if list was empty
+        if (!added)
+        {
+            newCluster = new Cluster();
+            newCluster.addPlayerToCluster(p);
+            newNode = new Node(newCluster);
+
+
+            if (previous == null)
             {
-                firstTeam = newNode; // set as first team
+                firstTeam = newNode;
             }
             else
             {
-                previous.setNext(newNode); // add to end
+                previous.setNext(newNode);
             }
         }
     }
 
-    public void showPlayerHistogram() // shows number of players per team
+
+    /**
+     * showPlayerHistogram()
+     *
+     * Precondition: None
+     * Postcondition: The Collection is traversed cluster by cluster.  A
+     *                  row comprising cluster name, a star for each
+     *                  player in the cluster, and the total number of
+     *                  players in the cluster is printed.  The message
+     *                  "No data!" should be printed if the Collection is
+     *                  empty.
+     * Informally: Print the horizontal histogram of players per team
+     */
+        public void showPlayerHistogram()
     {
-        Node current; // traversal pointer
-        Cluster currentCluster; // current team cluster
-        Player firstPlayer; // first player in cluster
-        String teamName; // team name
-        String stars; // stars for histogram
-        int count; // number of players
-        int i; // loop counter
+        Node current;
+        Cluster currentCluster;
+        Player firstPlayer;
+        String teamName;
+        String stars;
+        int count;
+        int i;
 
-        System.out.println("Count of players per team:"); // heading
 
-        if (isEmpty()) // if no data
+        System.out.println("Count of players per team:");
+
+
+        if (isEmpty())
         {
-            System.out.println("No data!"); // print message
+            System.out.println("No data!");
         }
         else
         {
-            current = firstTeam; // start from first team
+            current = firstTeam;
 
-            while (current != null) // go through all teams
+
+            while (current != null)
             {
-                currentCluster = (Cluster) current.getData(); // get cluster
-                firstPlayer = currentCluster.getFirstPlayer(); // get first player
-                teamName = firstPlayer.getTeam(); // get team name
-                count = currentCluster.countPlayers(); // count players
-                stars = ""; // start with empty stars
+                currentCluster = (Cluster) current.getData();
+                firstPlayer = currentCluster.getFirstPlayer();
+                teamName = firstPlayer.getTeam();
+                count = currentCluster.countPlayers();
+                stars = "";
 
-                for (i = 0; i < count; i++) // loop to create stars
+
+                for (i = 0; i < count; i++)
                 {
-                    stars = stars + "*"; // add one star each time
+                    stars = stars + "*";
                 }
 
-                System.out.println(String.format("%22s | %s %d", teamName, stars, count)); // print result
 
-                current = current.getNext(); // move to next team
+                System.out.println(String.format("%22s | %s %d", teamName, stars, count));
+
+
+                current = current.getNext();
             }
         }
     }
 
-    public String most(char x) // finds player with highest stat across all teams
+
+    /**
+     * most()
+     *
+     * @param x char -- the category to search: frees-(a)gainst, (c)langers,
+     *                      (d)isposals, (g)oals, or ga(m)es
+     *
+     * @return String -- the printable form of the identified output
+     *  
+     * Precondition: None.
+     * Postcondition: All players in all teams in the Collection are searched to
+     *                  find the player with the largest value in the given
+     *                  category (x).  The message "No data!" is returned if the
+     *                  Collection is empty.  In the case of a tie, the player
+     *                  found last is the one whose data is returned.
+     * Informally: Search every player in the cluster for a value in the given
+     *                  category and print the name and URL for all that match.
+     */
+        public String most(char x)
     {
-        Node current; // traversal pointer
-        Cluster currentCluster; // current cluster
-        Player currentPlayer; // current player
-        Player resultPlayer; // best player found
-        String result; // result string
-        int currentValue; // current stat value
-        int maximumValue; // highest value
+        Node current;
+        Cluster currentCluster;
+        Player currentPlayer;
+        Player resultPlayer;
+        String result;
+        int currentValue;
+        int maximumValue;
 
-        current = firstTeam; // start from first team
-        resultPlayer = null; // no best player yet
-        result = ""; // empty result
-        maximumValue = 0; // start max at 0
 
-        if (isEmpty()) // if no data
+        current = firstTeam;
+        resultPlayer = null;
+        result = "";
+        maximumValue = 0;
+
+
+        if (isEmpty())
         {
-            result = "No data!"; // return message
+            result = "No data!";
         }
         else
         {
-            while (current != null) // go through all teams
+            while (current != null)
             {
-                currentCluster = (Cluster) current.getData(); // get cluster
-                currentPlayer = currentCluster.most(x); // get best player in cluster
-                currentValue = 0; // reset value
+                currentCluster = (Cluster) current.getData();
+                currentPlayer = currentCluster.most(x);
+                currentValue = 0;
 
-                // check which stat is required
+
                 if (x == 'a')
+                {
                     currentValue = currentPlayer.getFreesAgainst();
+                }
                 else if (x == 'c')
+                {
                     currentValue = currentPlayer.getClangers();
+                }
                 else if (x == 'd')
+                {
                     currentValue = currentPlayer.getDisposals();
+                }
                 else if (x == 'g')
+                {
                     currentValue = currentPlayer.getGoals();
+                }
                 else if (x == 'm')
+                {
                     currentValue = currentPlayer.getGames();
+                }
 
-                // update best player if needed
+
                 if ((resultPlayer == null) || (currentValue >= maximumValue))
                 {
                     resultPlayer = currentPlayer;
                     maximumValue = currentValue;
                 }
 
-                current = current.getNext(); // move to next team
+
+                current = current.getNext();
             }
 
-            result = resultPlayer.toString(); // convert player to string
+
+            result = resultPlayer.toString();
         }
 
-        return result; // return result
+
+        return result;
     }
 
-    public void summarise(String t) // prints summary for a specific team
+
+    /**
+     * summarise()
+     *
+     * @param t String -- the name of the desired team
+     *
+     * Precondition: None
+     * Postcondition: The Collection is traversed cluster by cluster.  The
+     *                  aggregated statistics of all players for the chosen
+     *                  team is calculated and printed.  The message "No data!"
+     *                  should be printed if the Collection is empty; the
+     *                  message "Team (t) not found!" should be printed if the
+     *                  Collection is not empty but there is no team with the
+     *                  given team name present.
+     * Informally: Process the entire Collection displaying the combined
+     *                  statistics for the given team.
+     */
+        public void summarise(String t)
     {
-        Node current; // traversal pointer
-        Cluster currentCluster; // current cluster
-        Player firstPlayer; // first player of cluster
-        boolean found; // checks if team found
+        Node current;
+        Cluster currentCluster;
+        Player firstPlayer;
+        boolean found;
 
-        current = firstTeam; // start from first team
-        found = false; // not found yet
 
-        if (isEmpty()) // if no data
+        current = firstTeam;
+        found = false;
+
+
+        if (isEmpty())
         {
-            System.out.println("No data!"); // print message
+            System.out.println("No data!");
         }
         else
         {
-            while ((current != null) && (!found)) // search for team
+            while ((current != null) && (!found))
             {
-                currentCluster = (Cluster) current.getData(); // get cluster
-                firstPlayer = currentCluster.getFirstPlayer(); // get first player
+                currentCluster = (Cluster) current.getData();
+                firstPlayer = currentCluster.getFirstPlayer();
 
-                if (firstPlayer.getTeam().equalsIgnoreCase(t)) // match team name
+
+                if (firstPlayer.getTeam().equalsIgnoreCase(t))
                 {
-                    System.out.println(currentCluster.summary()); // print summary
-                    found = true; // mark found
+                    System.out.println(currentCluster.summary());
+                    found = true;
                 }
                 else
                 {
-                    current = current.getNext(); // move to next
+                    current = current.getNext();
                 }
             }
 
-            if (!found) // if team not found
+
+            if (!found)
             {
-                System.out.println("Team (" + t + ") not found!"); // print message
+                System.out.println("Team (" + t + ") not found!");
             }
         }
     }
 
-    public String toString() // prints all players in all teams
+
+    /**
+     * toString()
+     *
+     * @return String -- printable form of the Collection of players
+     *
+     * Precondition: None
+     * Postcondition: A printable (String) form of the Collections's
+     *                  players data is returned, one player per line.  If
+     *                  there are no players then "" is returned.
+     * Informally: Convert the Collection of players data to a multi-line
+     *                  String.
+     */
+        public String toString()
     {
-        Node current; // traversal pointer
-        String result; // final string
+        Node current;
+        String result;
 
-        current = firstTeam; // start from first
-        result = ""; // empty string
 
-        while (current != null) // loop through teams
+        current = firstTeam;
+        result = "";
+
+
+        while (current != null)
         {
-            result = result + ((Cluster) current.getData()).toString(); // add cluster data
-            current = current.getNext(); // move to next team
+            result = result + ((Cluster) current.getData()).toString();
+            current = current.getNext();
         }
 
-        return result; // return full string
+
+        return result;
     }
 }
+
+
+
